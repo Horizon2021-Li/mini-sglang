@@ -1,0 +1,55 @@
+<!doctype html><meta charset="utf-8"><title>Mini-SGLang run evidence</title>
+<style>body{margin:0;background:#0b1020;color:#e8effb;font:16px monospace}section{padding:32px;width:1100px;box-sizing:border-box;background:#111a2e;margin:20px}h1{font:24px sans-serif;color:#9ad9ff}p,footer{color:#9caec8;font-size:14px}pre{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}footer{border-top:1px solid #344057;padding-top:16px}</style><section id="01-model-config"><h1>4.1 / 4.2 — Llama configuration and weight loading</h1><p>Actual script output · TinyLlama 1.1B · Mini-SGLang · GPU FP16</p><pre>[1] Load configuration
+Model: /home/horizon/Code/ai_infra/mini-sglang/models/TinyLlama-1.1B-Chat-v1.0
+HF config: LlamaConfig
+{
+  &quot;num_layers&quot;: 22,
+  &quot;num_qo_heads&quot;: 32,
+  &quot;num_kv_heads&quot;: 4,
+  &quot;head_dim&quot;: 64,
+  &quot;hidden_size&quot;: 2048,
+  &quot;vocab_size&quot;: 32000,
+  &quot;intermediate_size&quot;: 5632,
+  &quot;rms_norm_eps&quot;: 1e-05,
+  &quot;rotary_config&quot;: {
+    &quot;head_dim&quot;: 64,
+    &quot;rotary_dim&quot;: 64,
+    &quot;max_position&quot;: 2048,
+    &quot;base&quot;: 10000.0,
+    &quot;scaling&quot;: null
+  },
+  &quot;hidden_act&quot;: &quot;silu&quot;,
+  &quot;tie_word_embeddings&quot;: false,
+  &quot;num_experts&quot;: 0,
+  &quot;num_experts_per_tok&quot;: 0,
+  &quot;moe_intermediate_size&quot;: 0,
+  &quot;norm_topk_prob&quot;: false,
+  &quot;model_type&quot;: &quot;llama&quot;,
+  &quot;architectures&quot;: [
+    &quot;LlamaForCausalLM&quot;
+  ]
+}
+
+Loading weights:   0%|          | 0/1 [00:00&lt;?, ?it/s]
+Loading weights: 100%|██████████| 1/1 [00:01&lt;00:00,  1.79s/it]
+Loading weights: 100%|██████████| 1/1 [00:01&lt;00:00,  1.80s/it]
+
+[2] Pretrained weights loaded
+Model class: LlamaForCausalLM
+isinstance(model, BaseLLMModel): True
+Weight tensors: 135
+Parameter elements: 1100048384
+Device / dtype: cuda:0 torch.float16
+QKV weight: (2560, 2048)</pre><footer>Source: minimal_llama.py → run.log | Log viewer screenshot; no inference executed</footer></section><section id="02-req-batch"><h1>4.1 / 4.2 — Req, Batch and Context</h1><p>Actual script output · TinyLlama 1.1B · Mini-SGLang · GPU FP16</p><pre>[3] Manually constructed Req and Batch
+Prompt: &#x27;Hello, my name is&#x27;
+CPU token ids: [1, 15043, 29892, 590, 1024, 338]
+Req: uid=1, table_idx=0, cached_len=0, device_len=6, max_device_len=14
+Req: extend_len=6, remain_len=8, can_decode=True
+Batch: phase=prefill, size=1, padded_size=1
+Batch.input_ids: (6,) cuda:0
+Batch.positions: [0, 1, 2, 3, 4, 5]
+
+[4] Context: active batch is our batch -&gt; True
+Context: active batch cleared after scope -&gt; True
+No forward pass: KV pool, page table, out_loc and attention metadata are not initialized.
+PASS: real Llama weights loaded; configuration, Req, Batch and Context verified.</pre><footer>Source: minimal_llama.py → run.log | Log viewer screenshot; no inference executed</footer></section>

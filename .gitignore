@@ -31,3 +31,9 @@ env/
 # .vscode
 .vscode/
 .coverage
+
+# Local model weights and CUDA runtime components
+/models/
+/.cuda-12.8/
+/.cuda-12.9/
+/.system-libs/

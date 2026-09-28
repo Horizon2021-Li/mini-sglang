@@ -1,0 +1,53 @@
+[1] Load configuration
+Model: /home/horizon/Code/ai_infra/mini-sglang/models/TinyLlama-1.1B-Chat-v1.0
+HF config: LlamaConfig
+{
+  "num_layers": 22,
+  "num_qo_heads": 32,
+  "num_kv_heads": 4,
+  "head_dim": 64,
+  "hidden_size": 2048,
+  "vocab_size": 32000,
+  "intermediate_size": 5632,
+  "rms_norm_eps": 1e-05,
+  "rotary_config": {
+    "head_dim": 64,
+    "rotary_dim": 64,
+    "max_position": 2048,
+    "base": 10000.0,
+    "scaling": null
+  },
+  "hidden_act": "silu",
+  "tie_word_embeddings": false,
+  "num_experts": 0,
+  "num_experts_per_tok": 0,
+  "moe_intermediate_size": 0,
+  "norm_topk_prob": false,
+  "model_type": "llama",
+  "architectures": [
+    "LlamaForCausalLM"
+  ]
+}
+Loading weights:   0%|          | 0/1 [00:00<?, ?it/s]Loading weights: 100%|██████████| 1/1 [00:01<00:00,  1.79s/it]Loading weights: 100%|██████████| 1/1 [00:01<00:00,  1.80s/it]
+
+[2] Pretrained weights loaded
+Model class: LlamaForCausalLM
+isinstance(model, BaseLLMModel): True
+Weight tensors: 135
+Parameter elements: 1100048384
+Device / dtype: cuda:0 torch.float16
+QKV weight: (2560, 2048)
+
+[3] Manually constructed Req and Batch
+Prompt: 'Hello, my name is'
+CPU token ids: [1, 15043, 29892, 590, 1024, 338]
+Req: uid=1, table_idx=0, cached_len=0, device_len=6, max_device_len=14
+Req: extend_len=6, remain_len=8, can_decode=True
+Batch: phase=prefill, size=1, padded_size=1
+Batch.input_ids: (6,) cuda:0
+Batch.positions: [0, 1, 2, 3, 4, 5]
+
+[4] Context: active batch is our batch -> True
+Context: active batch cleared after scope -> True
+No forward pass: KV pool, page table, out_loc and attention metadata are not initialized.
+PASS: real Llama weights loaded; configuration, Req, Batch and Context verified.
